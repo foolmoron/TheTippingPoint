@@ -7,7 +7,7 @@ using UnityEngine;
 public class Mesh2D : MonoBehaviour {
 
     public Vector3[] Points;
-    public Color Color;
+    public Color Color = Color.white;
 
     Mesh mesh;
     MeshFilter mf;
@@ -18,7 +18,7 @@ public class Mesh2D : MonoBehaviour {
     [Range(0, 0.2f)]
     public float OutlineThickness = 0.03f;
     public Vector3 OutlineOffset = new Vector3(0, -0.02f, 0.05f);
-    public Color OutlineColor;
+    public Color OutlineColor = Color.black;
 
     Vector3[] originalPointsOutline;
     Vector3[] currentPointsOutline;
@@ -37,6 +37,10 @@ public class Mesh2D : MonoBehaviour {
         mf.mesh = mesh;
         mr = GetComponent<MeshRenderer>();
 
+        Reset();
+    }
+
+    public void Reset() {
         var indices = Triangulator.Triangulate(Points);
         colors = new Color[Points.Length];
 
@@ -60,8 +64,8 @@ public class Mesh2D : MonoBehaviour {
 
             colorsOutline = new Color[Points.Length];
 
-            var xScale = transform.localScale.x;
-            var yScale = transform.localScale.y;
+            var xScale = transform.lossyScale.x;
+            var yScale = transform.lossyScale.y;
             originalPointsOutline = Points.Map(p => new Vector3(p.x * (1 + (OutlineThickness / xScale)), p.y * (1 + (OutlineThickness / yScale)), p.z));
             currentPointsOutline = Points.Map(p => p);
             desiredPointsOutline = Points.Map(p => p);
@@ -92,23 +96,24 @@ public class Mesh2D : MonoBehaviour {
                 colorsOutline[i] = OutlineColor;
             }
             meshOutline.colors = colorsOutline;
-        }
-        // outline shake
-        if (OutlineShake > 0) {
-            // random new desired pos
-            for (int i = 0; i < desiredPointsOutline.Length; i++) {
-                if (Random.value < 0.25f) {
-                    desiredPointsOutline[i] = originalPointsOutline[i] * (0.98f + OutlineShake * Random.value);
+
+            // outline shake
+            if (OutlineShake > 0) {
+                // random new desired pos
+                for (int i = 0; i < desiredPointsOutline.Length; i++) {
+                    if (Random.value < 0.25f) {
+                        desiredPointsOutline[i] = originalPointsOutline[i] * (0.98f + OutlineShake * Random.value);
+                    }
                 }
+                // lerp current to desired
+                for (int i = 0; i < currentPointsOutline.Length; i++) {
+                    currentPointsOutline[i] = Vector3.MoveTowards(currentPointsOutline[i], desiredPointsOutline[i], 5 * OutlineShake * Time.deltaTime);
+                }
+                // set current verts
+                meshOutline.vertices = currentPointsOutline;
+            } else {
+                meshOutline.vertices = originalPointsOutline;
             }
-            // lerp current to desired
-            for (int i = 0; i < currentPointsOutline.Length; i++) {
-                currentPointsOutline[i] = Vector3.MoveTowards(currentPointsOutline[i], desiredPointsOutline[i], 5 * OutlineShake * Time.deltaTime);
-            }
-            // set current verts
-            meshOutline.vertices = currentPointsOutline;
-        } else {
-            meshOutline.vertices = originalPointsOutline;
         }
     }
 }
