@@ -6,16 +6,13 @@ public class PersonOptimizer : MonoBehaviour {
 
     static Transform MainTarget;
 
-    PersonColor pc;
-    GameObject anim;
+    public MonoBehaviour[] componentsToDisable;
+    public GameObject[] objectsToDisable;
 
     public bool IsMain;
     public float ActiveDistance = 5;
 
     void Awake() {
-        pc = GetComponent<PersonColor>();
-        anim = transform.FindChild("Anim").gameObject;
-
         if (IsMain) {
             MainTarget = transform;
         }
@@ -23,7 +20,11 @@ public class PersonOptimizer : MonoBehaviour {
 
     void Update() {
         var active = (MainTarget.position - transform.position).sqrMagnitude < 64;
-        pc.enabled = active;
-        anim.SetActive(active);
+        foreach (var c in componentsToDisable) {
+            c.enabled = active;
+        }
+        foreach (var o in objectsToDisable) {
+            o.SetActive(active);
+        }
     }
 }

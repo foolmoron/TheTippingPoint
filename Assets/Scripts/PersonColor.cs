@@ -30,6 +30,10 @@ public class PersonColor : MonoBehaviour {
                 HeadHue = Random.value;
                 ShirtHue = Random.value;
                 PantsHue = Random.value;
+                var outlineColor = new HSBColor(Random.value, 1, 1).ToColor();
+                Head.OutlineColor = outlineColor;
+                Shirt.OutlineColor = outlineColor;
+                Pants.OutlineColor = outlineColor;
                 Randomize = false;
             }
         }
