@@ -6,6 +6,7 @@ public class PersonInfo : MonoBehaviour {
 
     public string FirstName;
     public string LastName;
+    public string FullName { get { return FirstName + " " + LastName; } }
 
     public bool Randomize;
 

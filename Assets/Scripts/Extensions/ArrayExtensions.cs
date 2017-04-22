@@ -34,6 +34,7 @@ public static class ArrayExtensions {
     }
 
     public static TReturn[] Map<TArray, TReturn>(this IList<TArray> array, Func<TArray, TReturn> map, TReturn[] preallocatedArray) {
+        preallocatedArray = preallocatedArray ?? new TReturn[array.Count];
         for (int i = 0; i < preallocatedArray.Length; i++) {
             preallocatedArray[i] = i < array.Count ? map(array[i]) : default(TReturn);
         }

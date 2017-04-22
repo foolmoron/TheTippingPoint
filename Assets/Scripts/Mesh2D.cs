@@ -56,19 +56,24 @@ public class Mesh2D : MonoBehaviour {
             outline.transform.parent = transform.parent;
             outline.transform.localScale = transform.localScale;
 
-            meshOutline = new Mesh();
+            meshOutline = meshOutline ?? new Mesh();
             mfOutline = outline.gameObject.GetComponent<MeshFilter>() != null ? outline.gameObject.GetComponent<MeshFilter>() : outline.gameObject.AddComponent<MeshFilter>();
             mfOutline.mesh = meshOutline;
             mrOutline = outline.gameObject.GetComponent<MeshRenderer>() != null ? outline.gameObject.GetComponent<MeshRenderer>() : outline.gameObject.AddComponent<MeshRenderer>();
             mrOutline.sharedMaterial = mr.sharedMaterial;
 
-            colorsOutline = new Color[Points.Length];
+            colorsOutline = colorsOutline ?? new Color[Points.Length];
 
             var xScale = transform.lossyScale.x;
             var yScale = transform.lossyScale.y;
-            originalPointsOutline = Points.Map(p => new Vector3(p.x * (1 + (OutlineThickness / xScale)), p.y * (1 + (OutlineThickness / yScale)), p.z));
-            currentPointsOutline = Points.Map(p => p);
-            desiredPointsOutline = Points.Map(p => p);
+            originalPointsOutline = Points.Map(p => new Vector3(p.x * (1 + (OutlineThickness / xScale)), p.y * (1 + (OutlineThickness / yScale)), p.z), originalPointsOutline);
+            desiredPointsOutline = Points.Map(p => p, desiredPointsOutline);
+            if (OutlineShake > 0) {
+                for (int i = 0; i < desiredPointsOutline.Length; i++) {
+                    desiredPointsOutline[i] = originalPointsOutline[i] * (0.98f + OutlineShake * Random.value);
+                }
+            }
+            currentPointsOutline = desiredPointsOutline.Map(p => p, currentPointsOutline);
 
             meshOutline.vertices = currentPointsOutline;
             meshOutline.triangles = indices;
