@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PersonColor : MonoBehaviour {
 
-    public SpriteRenderer Head;
-    public SpriteRenderer Shirt;
-    public SpriteRenderer Pants;
+    public Mesh2D Head;
+    public Mesh2D Shirt;
+    public Mesh2D Pants;
 
     public bool Randomize;
     [Range(0, 1)]
@@ -19,8 +19,6 @@ public class PersonColor : MonoBehaviour {
     public float Saturation;
     [Range(0, 1)]
     public float Brightness;
-    [Range(0, 1)]
-    public float Alpha;
 
     void Start() {
 	}
@@ -37,9 +35,9 @@ public class PersonColor : MonoBehaviour {
         }
         // colors
         {
-            Head.color = new HSBColor(HeadHue, Saturation, Brightness, Alpha).ToColor();
-            Shirt.color = new HSBColor(ShirtHue, Saturation, Brightness, Alpha).ToColor();
-            Pants.color = new HSBColor(PantsHue, Saturation, Brightness, Alpha).ToColor();
+            Head.Color = new HSBColor(HeadHue, Saturation, Brightness).ToColor();
+            Shirt.Color = new HSBColor(ShirtHue, Saturation, Brightness).ToColor();
+            Pants.Color = new HSBColor(PantsHue, Saturation, Brightness).ToColor();
         }
 	}
 }

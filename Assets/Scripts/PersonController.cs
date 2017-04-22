@@ -33,7 +33,7 @@ public class PersonController : MonoBehaviour {
             } else {
                 RotatePhase += RotateSpeed * Time.deltaTime;
             }
-            AnimObject.rotation = Quaternion.Euler(0, 0, Mathf.Sin(RotatePhase) * RotateMax);
+            AnimObject.localRotation = Quaternion.Euler(-20, 0, Mathf.Sin(RotatePhase) * RotateMax);
         }
 	}
 }
