@@ -11,6 +11,7 @@ public class PersonController : MonoBehaviour {
     public float RotateSpeed;
     public float RotatePhase;
     public Vector2? TargetPosition;
+    public bool DontMove;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -19,9 +20,11 @@ public class PersonController : MonoBehaviour {
 	void Update() {
         // velocity towards 
         {
-            if (TargetPosition.HasValue) {
+            if (TargetPosition.HasValue && !DontMove) {
                 var vectorToTarget = TargetPosition.Value - rb.position;
                 var scale = Mathf.Min(1, vectorToTarget.magnitude * 2);
+                if (scale < 0.01f)
+                    scale = 0;
                 rb.velocity = vectorToTarget.normalized * Speed * scale;
             } else {
                 rb.velocity = Vector2.zero;

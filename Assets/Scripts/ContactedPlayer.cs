@@ -17,6 +17,7 @@ public class ContactedPlayer : MonoBehaviour {
     public float TalkTime = 2.5f;
     public float CurrentContactTime;
 
+    public PersonController Controller;
     public PersonTextHelper TextHelper;
     public PersonConnection Connection;
 
@@ -34,22 +35,24 @@ public class ContactedPlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.GetComponent<Player>() || CurrentlyContacting != null) {
+        if (collision.gameObject != Player.Inst.gameObject || CurrentlyContacting != null) {
             return;
         }
         InContact = true;
         ContactId++;
         CurrentlyContacting = this;
+        Controller.DontMove = true;
         OnContactEnter(this);
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.GetComponent<Player>()) {
+        if (collision.gameObject != Player.Inst.gameObject) {
             return;
         }
         InContact = false;
         CurrentlyContacting = null;
+        Controller.DontMove = false;
         OnContactExit(this);
     }
 }

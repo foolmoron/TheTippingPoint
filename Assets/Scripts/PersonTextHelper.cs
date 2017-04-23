@@ -77,6 +77,6 @@ public class PersonTextHelper : MonoBehaviour {
         }
         var finalText = sb.ToString();
         // show text box
-        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position, transform.parent, color.OutlineColor, LingerTime));
+        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position + new Vector3(0, 0.5f, 0), transform.parent, color.OutlineColor, LingerTime));
     }
 }

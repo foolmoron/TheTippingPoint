@@ -15,7 +15,7 @@ public class ShowNameOnTrigger : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (!collision.GetComponent<Player>()) {
+        if (collision.gameObject != Player.Inst.gameObject) {
             return;
         }
         if (canShowName) {
