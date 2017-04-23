@@ -8,8 +8,8 @@ public class SetTextPlayerPosition : MonoBehaviour {
 
     public RectRandomizer InvertX;
     public RectRandomizer InvertY;
-    int prevX;
-    int prevY;
+    int prevX = -1;
+    int prevY = -1;
 
     void Awake() {
         text = GetComponent<Text>();
@@ -18,13 +18,14 @@ public class SetTextPlayerPosition : MonoBehaviour {
     void Update() {
         var x = (int) Player.Inst.transform.position.x;
         var y = (int) Player.Inst.transform.position.y;
-        text.text = string.Format("[{0:00}, {1:00}]", x, y);
 
         if (x != prevX) {
+            text.text = string.Format("[{0:00}, {1:00}]", x, y);
             InvertX.Randomize();
             prevX = x;
         }
         if (y != prevY) {
+            text.text = string.Format("[{0:00}, {1:00}]", x, y);
             InvertY.Randomize();
             prevY = y;
         }

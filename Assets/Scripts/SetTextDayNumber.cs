@@ -2,11 +2,11 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class SetTextDay : MonoBehaviour {
+public class SetTextDayNumber : MonoBehaviour {
     
     Text text;
 
-    public RectRandomizer Invert;
+    public RectRandomizer Container;
     int prevDay = -1;
 
     void Awake() {
@@ -14,10 +14,9 @@ public class SetTextDay : MonoBehaviour {
     }
 
     void Update() {
-
         if (prevDay != DayManager.Inst.Day) {
-            text.text = DayManager.Inst.ToFullString();
-            Invert.Randomize();
+            text.text = "Day " + DayManager.Inst.Day;
+            Container.Randomize();
             prevDay = DayManager.Inst.Day;
         }
     }

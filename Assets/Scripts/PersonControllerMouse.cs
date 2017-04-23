@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PersonControllerMouse : MonoBehaviour {
-
+    
     PersonController controller;
 
     void Start() {
@@ -11,10 +11,10 @@ public class PersonControllerMouse : MonoBehaviour {
 	}
 	
 	void Update() {
-        if (Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0) && !Menu.Inst.MenuActive) {
             controller.TargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         } else {
-            controller.TargetPosition = null;   
+            controller.TargetPosition = null;
         }
     }
 }

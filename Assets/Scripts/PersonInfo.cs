@@ -14,6 +14,15 @@ public class PersonInfo : MonoBehaviour {
 
     Transform anim;
 
+    void Awake() {
+        if (Randomize) {
+            FirstName = NameGenerator.Inst.GetRandomFirstName();
+            LastName = NameGenerator.Inst.GetRandomLastName();
+            Size = 0.7f + 0.5f * Random.value;
+            Randomize = false;
+        }
+    }
+
     void Start() {
         anim = transform.FindChild("Anim");
     }

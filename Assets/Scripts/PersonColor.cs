@@ -23,6 +23,16 @@ public class PersonColor : MonoBehaviour {
     public bool FadeColor;
     public bool FadeOutline;
 
+    void Awake() {
+        if (Randomize) {
+            HeadHue = Random.value * 0.99f;
+            ShirtHue = Random.value * 0.99f;
+            PantsHue = Random.value * 0.99f;
+            OutlineColor = new HSBColor(Random.value * 0.99f, 1, 1).ToColor();
+            Randomize = false;
+        }
+    }
+
     void Start() {
 	}
 	
@@ -30,10 +40,10 @@ public class PersonColor : MonoBehaviour {
         // randomize
         {
             if (Randomize) {
-                HeadHue = Random.value;
-                ShirtHue = Random.value;
-                PantsHue = Random.value;
-                OutlineColor = new HSBColor(Random.value, 1, 1).ToColor();
+                HeadHue = Random.value * 0.99f;
+                ShirtHue = Random.value * 0.99f;
+                PantsHue = Random.value * 0.99f;
+                OutlineColor = new HSBColor(Random.value * 0.99f, 1, 1).ToColor();
                 Randomize = false;
             }
         }

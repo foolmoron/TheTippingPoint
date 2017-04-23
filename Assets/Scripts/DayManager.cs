@@ -41,8 +41,21 @@ public class DayManager : Manager<DayManager> {
         TimeToNextDay = DaySeconds;
     }
 
+    public string GetDayNumberSuffix(int dayOfMonth) {
+        switch (dayOfMonth) {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
+
     public string ToFullString() {
-        return string.Format("{0}, {1} {2}", DayOfWeek, Month, DayOfMonth);
+        return string.Format("{0}, {1} {2}{3}", DayOfWeek, Month, DayOfMonth, GetDayNumberSuffix(DayOfMonth));
     }
 
     void FixedUpdate() {
