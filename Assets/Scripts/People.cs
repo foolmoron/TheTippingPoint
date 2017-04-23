@@ -17,8 +17,11 @@ public class People : Manager<People> {
 
     void Awake() {
         Persons = new PersonConnection[Count];
+        var zeroBasedPositions = Persons.Map(p => new Vector3(SpawnArea.width * (Random.value - 0.5f), SpawnArea.height * (Random.value - 0.5f)));
+        zeroBasedPositions = zeroBasedPositions.Map(p => new Vector3(Mathf.Max(Mathf.Abs(p.x), 3) * Mathf.Sign(p.x), Mathf.Max(Mathf.Abs(p.y), 3) * Mathf.Sign(p.y)));
+        var center = SpawnArea.center.to3();
         for (int i = 0; i < Persons.Length; i++) {
-            Persons[i] = Instantiate(PersonPrefab, new Vector3(SpawnArea.xMin + SpawnArea.width * Random.value, SpawnArea.yMin + SpawnArea.height * Random.value), Quaternion.identity, transform).GetComponent<PersonConnection>();
+            Persons[i] = Instantiate(PersonPrefab, zeroBasedPositions[i] + center, Quaternion.identity, transform).GetComponent<PersonConnection>();
         }
     }
 
