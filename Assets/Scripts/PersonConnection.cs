@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PersonConnection : MonoBehaviour {
@@ -8,6 +10,13 @@ public class PersonConnection : MonoBehaviour {
     public int Connection;
 
     public PersonInfo Introducer;
+
+    public int DayLastSeen;
+    public int DayLastTalked;
+
+    public int Conn1DecayDays = 5;
+    public int Conn2DecayDays = 5;
+    public int Conn3DecayDays = 5;
 
     PersonColor color;
     Mesh2D[] meshes;
@@ -22,12 +31,18 @@ public class PersonConnection : MonoBehaviour {
         controller = GetComponent<PersonController>();
 
         contact = GetComponentInChildren<ContactedPlayer>();
+        contact.OnSeen += OnSeen;
         contact.OnTalk1 += OnTalk1;
         contact.OnTalk2 += OnTalk2;
         contact.OnTalk3 += OnTalk3;
     }
 
+    public static void OnSeen(ContactedPlayer contact) {
+        contact.Connection.DayLastSeen = DayManager.Inst.Day;
+    }
+
     public static void OnTalk1(ContactedPlayer contact) {
+        contact.Connection.DayLastTalked = DayManager.Inst.Day;
         contact.TextHelper.ShowText("Hi ", T.PLAYER_FIRSTNAME, "! I'm ", T.PERSON_FIRSTNAME, ", let's be friends!");
     }
     public static void OnTalk2(ContactedPlayer contact) {

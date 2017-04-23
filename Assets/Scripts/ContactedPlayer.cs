@@ -7,6 +7,7 @@ public class ContactedPlayer : MonoBehaviour {
 
     public event Action<ContactedPlayer> OnContactEnter = delegate { };
     public event Action<ContactedPlayer> OnContactExit = delegate { };
+    public event Action<ContactedPlayer> OnSeen = delegate { };
     public event Action<ContactedPlayer> OnTalk1 = delegate { };
     public event Action<ContactedPlayer> OnTalk2 = delegate { };
     public event Action<ContactedPlayer> OnTalk3 = delegate { };
@@ -47,7 +48,11 @@ public class ContactedPlayer : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject != Player.Inst.gameObject || CurrentlyContacting != null) {
+        if (collision.gameObject != Player.Inst.gameObject) {
+            return;
+        }
+        OnSeen(this);
+        if (CurrentlyContacting != null) {
             return;
         }
         InContact = true;

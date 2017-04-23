@@ -19,7 +19,7 @@ public class PersonOptimizer : MonoBehaviour {
     }
 
     void Update() {
-        var active = (MainTarget.position - transform.position).sqrMagnitude < 64;
+        var active = (MainTarget.position - transform.position).sqrMagnitude < 100;
         foreach (var c in componentsToDisable) {
             c.enabled = active;
         }

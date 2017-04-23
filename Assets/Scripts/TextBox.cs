@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TextBox : MonoBehaviour {
 
     TextMesh text;
+    Text textUI;
     Renderer textRenderer;
     Mesh2D mesh;
     
@@ -17,7 +19,8 @@ public class TextBox : MonoBehaviour {
 
     void Awake() {
         text = transform.FindChild("Text").GetComponent<TextMesh>();
-        textRenderer = text.GetComponent<Renderer>();
+        textUI = transform.FindChild("Text").GetComponent<Text>();
+        textRenderer = transform.FindChild("Text").GetComponent<Renderer>();
         mesh = transform.FindChild("Mesh").GetComponent<Mesh2D>();
     }
 
@@ -26,7 +29,11 @@ public class TextBox : MonoBehaviour {
     }
 
     public void SetText(string desiredText) {
-        text.text = desiredText;
+        if (text) {
+            text.text = desiredText;
+        } else if (textUI) {
+            textUI.text = desiredText;
+        }
         Reset = true;
     }
 
@@ -45,10 +52,10 @@ public class TextBox : MonoBehaviour {
         mesh.OutlineColor = OutlineColor;
 
         if (Reset) {
-            mesh.Points[0] = new Vector3(-1 * GetRandomScale(), 1 * GetRandomScale(), 0);
-            mesh.Points[1] = new Vector3(1 * GetRandomScale(), 1 * GetRandomScale(), 0);
-            mesh.Points[2] = new Vector3(1 * GetRandomScale(), -1 * GetRandomScale(), 0);
-            mesh.Points[3] = new Vector3(-1 * GetRandomScale(), -1 * GetRandomScale(), 0);
+            //mesh.Points[0] = new Vector3(-1 * GetRandomScale(), 1 * GetRandomScale(), 0);
+            //mesh.Points[1] = new Vector3(1 * GetRandomScale(), 1 * GetRandomScale(), 0);
+            //mesh.Points[2] = new Vector3(1 * GetRandomScale(), -1 * GetRandomScale(), 0);
+            //mesh.Points[3] = new Vector3(-1 * GetRandomScale(), -1 * GetRandomScale(), 0);
             mesh.Reset();
             Reset = false;
         }
