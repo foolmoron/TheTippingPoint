@@ -14,11 +14,11 @@ public static class T {
 }
 public class PersonTextHelper : MonoBehaviour {
 
-    public const int MAX_LINE_LENGTH = 18;
+    public const int MAX_LINE_LENGTH = 26;
 
     public float LingerTime = 1.25f;
 
-    PersonInfo info;
+    public PersonInfo info;
     PersonColor color;
     StringBuilder sb = new StringBuilder();
 
@@ -75,8 +75,8 @@ public class PersonTextHelper : MonoBehaviour {
                 lineLength += word.Length;
             }
         }
-        var finalText = sb.ToString();
+        var finalText = sb.ToString().TrimEnd();
         // show text box
-        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position + new Vector3(0, 0.5f, 0), transform.parent, color.OutlineColor, LingerTime));
+        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position + new Vector3(0, 0.5f, 0), transform, color.OutlineColor, LingerTime));
     }
 }
