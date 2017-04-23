@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : Manager<Player> {
 
-    void Start() {
+    public PersonInfo Info;
+    public PersonColor Color;
 
+    void Awake()
+    {
+        Info = GetComponent<PersonInfo>();
+        Color = GetComponent<PersonColor>();
     }
 }

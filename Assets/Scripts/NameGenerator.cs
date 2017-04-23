@@ -15,10 +15,10 @@ public class NameGenerator : Manager<NameGenerator> {
     public string[] lastNameSuffixes;
 
     public void Awake() {
-        firstNamePrefixes = FirstNamePrefixes.text.Split('\n');
-        firstNameSuffixes = FirstNameSuffixes.text.Split('\n');
-        lastNamePrefixes = LastNamePrefixes.text.Split('\n');
-        lastNameSuffixes = LastNameSuffixes.text.Split('\n');
+        firstNamePrefixes = FirstNamePrefixes.text.Split('\n').Map(s => s.Replace("\r", ""));
+        firstNameSuffixes = FirstNameSuffixes.text.Split('\n').Map(s => s.Replace("\r", "")); ;
+        lastNamePrefixes = LastNamePrefixes.text.Split('\n').Map(s => s.Replace("\r", "")); ;
+        lastNameSuffixes = LastNameSuffixes.text.Split('\n').Map(s => s.Replace("\r", "")); ;
     }
 
     public string GetRandomFirstName() {

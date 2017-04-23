@@ -12,11 +12,21 @@ public class PersonConnection : MonoBehaviour {
     PersonColor color;
     Mesh2D[] meshes;
 
+    ContactedPlayer contact;
+
     void Awake() {
         color = GetComponent<PersonColor>();
         meshes = GetComponentsInChildren<Mesh2D>();
+
+        contact = GetComponentInChildren<ContactedPlayer>();
+        contact.OnTalk += OnTalk;
     }
-    
+
+    public static void OnTalk(ContactedPlayer contact) {
+        contact.TextHelper.ShowText("Hi ", T.PLAYER_FIRSTNAME, "! I'm ", T.PERSON_FIRSTNAME, ", let's be friends!");
+        contact.Connection.RaiseConnection(2);
+    }
+
     public void RaiseConnection(int newConnection) {
         Connection = Mathf.Max(Connection, newConnection);
     }

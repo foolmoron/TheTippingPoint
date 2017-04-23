@@ -27,6 +27,7 @@ public class TextBox : MonoBehaviour {
 
     public void SetText(string desiredText) {
         text.text = desiredText;
+        Reset = true;
     }
 
     void Update() {

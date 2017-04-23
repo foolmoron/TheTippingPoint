@@ -29,8 +29,8 @@ public class TextBoxManager : Manager<TextBoxManager> {
         textBox.SetText(s);
         var items = byWord ? text.Split(' ') : text.ToCharArray().Map(c => c.ToString());
         foreach (var item in items) {
-            yield return new WaitForSeconds(byWord ? WordInterval : LetterInterval);
-            s += item;
+            yield return new WaitForSeconds((byWord ? WordInterval : LetterInterval) * (0.5f + Random.value));
+            s += item + (byWord ? " " : "");
             textBox.SetText(s);
         }
         // linger
