@@ -20,6 +20,8 @@ public class PersonColor : MonoBehaviour {
     public float Saturation;
     [Range(0, 1)]
     public float Brightness;
+    public bool FadeColor;
+    public bool FadeOutline;
 
     void Start() {
 	}
@@ -37,12 +39,12 @@ public class PersonColor : MonoBehaviour {
         }
         // colors
         {
-            Head.Color = new HSBColor(HeadHue, Saturation, Brightness).ToColor();
-            Shirt.Color = new HSBColor(ShirtHue, Saturation, Brightness).ToColor();
-            Pants.Color = new HSBColor(PantsHue, Saturation, Brightness).ToColor();
-            Head.OutlineColor = OutlineColor;
-            Shirt.OutlineColor = OutlineColor;
-            Pants.OutlineColor = OutlineColor;
+            Head.Color = new HSBColor(HeadHue, (FadeColor ? 0.33f : 1) * Saturation, (FadeColor ? 0.5f : 1) * Brightness).ToColor();
+            Shirt.Color = new HSBColor(ShirtHue, (FadeColor ? 0.33f : 1) * Saturation, (FadeColor ? 0.5f : 1) * Brightness).ToColor();
+            Pants.Color = new HSBColor(PantsHue, (FadeColor ? 0.33f : 1) * Saturation, (FadeColor ? 0.5f : 1) * Brightness).ToColor();
+            Head.OutlineColor = FadeOutline ? Color.gray : OutlineColor;
+            Shirt.OutlineColor = FadeOutline ? Color.gray : OutlineColor;
+            Pants.OutlineColor = FadeOutline ? Color.gray : OutlineColor;
         }
 	}
 }

@@ -8,6 +8,7 @@ public class Mesh2D : MonoBehaviour {
 
     public Vector3[] Points;
     public Color Color = Color.white;
+    public Color[] ExtraColors = new Color[0];
 
     Mesh mesh;
     MeshFilter mf;
@@ -91,6 +92,9 @@ public class Mesh2D : MonoBehaviour {
         // colors
         for (int i = 0; i < colors.Length; i++) {
             colors[i] = Color;
+        }
+        for (int i = 0; i < ExtraColors.Length; i++) {
+            colors[i+1] = ExtraColors[i];
         }
         mesh.colors = colors;
         // outline colors

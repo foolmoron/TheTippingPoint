@@ -15,10 +15,11 @@ public class TextBoxManager : Manager<TextBoxManager> {
         textBoxPool = TextBoxPrefab.GetObjectPool(10);
     }
 
-    public IEnumerator ShowTextBox(string text, bool byWord, Vector2 pos, Color outlineColor, float lingerTime) {
+    public IEnumerator ShowTextBox(string text, bool byWord, Vector2 pos, Transform parent, Color outlineColor, float lingerTime) {
         var textBox = textBoxPool.Obtain().GetComponent<TextBox>();
         // init
         {
+            textBox.transform.parent = parent;
             textBox.transform.position = pos.to3(TextBoxZ);
             textBox.OutlineColor = outlineColor;
             textBox.AutoScale = true;

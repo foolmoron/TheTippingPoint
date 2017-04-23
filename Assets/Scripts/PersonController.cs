@@ -10,6 +10,7 @@ public class PersonController : MonoBehaviour {
     public float RotateMax;
     public float RotateSpeed;
     public float RotatePhase;
+    public Vector2? TargetPosition;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -18,10 +19,10 @@ public class PersonController : MonoBehaviour {
 	void Update() {
         // velocity towards 
         {
-            if (Input.GetMouseButton(0)) {
-                var vectorToMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition).to2() - rb.position;
-                var scale = Mathf.Min(1, vectorToMouse.magnitude * 2);
-                rb.velocity = vectorToMouse.normalized * Speed * scale;
+            if (TargetPosition.HasValue) {
+                var vectorToTarget = TargetPosition.Value - rb.position;
+                var scale = Mathf.Min(1, vectorToTarget.magnitude * 2);
+                rb.velocity = vectorToTarget.normalized * Speed * scale;
             } else {
                 rb.velocity = Vector2.zero;
             }

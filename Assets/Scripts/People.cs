@@ -19,7 +19,7 @@ public class People : MonoBehaviour {
 	}
 
     void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(SpawnArea.center, SpawnArea.size);
     }
 }
