@@ -11,15 +11,18 @@ public class ContactedPlayer : MonoBehaviour {
     public event Action<ContactedPlayer> OnTalk1 = delegate { };
     public event Action<ContactedPlayer> OnTalk2 = delegate { };
     public event Action<ContactedPlayer> OnTalk3 = delegate { };
+    public event Action<ContactedPlayer> OnTalk4 = delegate { };
 
     public static ContactedPlayer CurrentlyContacting;
 
     public bool InContact;
+    public bool AlreadyTalked;
     public int ContactId;
 
-    public float Talk1Time = 2.5f;
-    public float Talk2Time = 8f;
-    public float Talk3Time = 15f;
+    public float Talk1Time = 1f;
+    public float Talk2Time = 6f;
+    public float Talk3Time = 12f;
+    public float Talk4Time = 15f;
     public float CurrentContactTime;
 
     public PersonController Controller;
@@ -31,6 +34,7 @@ public class ContactedPlayer : MonoBehaviour {
             var wasTalkTime1 = CurrentContactTime >= Talk1Time;
             var wasTalkTime2 = CurrentContactTime >= Talk2Time;
             var wasTalkTime3 = CurrentContactTime >= Talk3Time;
+            var wasTalkTime4 = CurrentContactTime >= Talk4Time;
             CurrentContactTime += Time.deltaTime;
             if (!wasTalkTime1 && CurrentContactTime >= Talk1Time) {
                 OnTalk1(this);
@@ -40,6 +44,9 @@ public class ContactedPlayer : MonoBehaviour {
             }
             if (!wasTalkTime3 && CurrentContactTime >= Talk3Time) {
                 OnTalk3(this);
+            }
+            if (!wasTalkTime4 && CurrentContactTime >= Talk4Time) {
+                OnTalk4(this);
             }
         } else {
             CurrentContactTime = 0;
@@ -56,6 +63,7 @@ public class ContactedPlayer : MonoBehaviour {
             return;
         }
         InContact = true;
+        AlreadyTalked = Connection.DayLastTalked == DayManager.Inst.Day;
         ContactId++;
         CurrentlyContacting = this;
         Controller.DontMove = true;

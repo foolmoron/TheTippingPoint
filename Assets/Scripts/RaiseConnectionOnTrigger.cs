@@ -10,12 +10,11 @@ public class RaiseConnectionOnTrigger : MonoBehaviour {
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
-        if (collision.gameObject != Player.Inst.gameObject) {
-            return;
-        }
-        connection.RaiseConnection(1);
-        if (connection.Introducer == null) {
-            connection.Introducer = collision.GetComponent<PersonInfo>();
+        if (collision.gameObject == Player.Inst.gameObject) {
+            connection.RaiseConnection(1);
+            if (connection.Introducer == null) {
+                connection.Introducer = collision.GetComponent<PersonInfo>();
+            }
         }
     }
 }

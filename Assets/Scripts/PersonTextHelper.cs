@@ -11,6 +11,11 @@ public static class T {
     public const string PERSON_FIRSTNAME = "{{personfirst}}";
     public const string PERSON_LASTNAME = "{{personlast}}";
     public const string PERSON_FULLNAME = "{{personfull}}";
+    public const string INTRO = "{{introducer}}";
+
+    public static string[] s(params string[] strings) {
+        return strings;
+    }
 }
 public class PersonTextHelper : MonoBehaviour {
 
@@ -19,40 +24,48 @@ public class PersonTextHelper : MonoBehaviour {
     public float LingerTime = 1.25f;
 
     public PersonInfo info;
+    PersonConnection conn;
     PersonColor color;
     StringBuilder sb = new StringBuilder();
 
-    void Awake() {
+    void Awake()
+    {
         info = GetComponent<PersonInfo>();
+        conn = GetComponent<PersonConnection>();
         color = GetComponent<PersonColor>();
     }
     
-    public void ShowText(params string[] texts) {
+    public void ShowText(params string[][] textss) {
         // replacement
         sb.Length = 0;
-        foreach (var text in texts) {
-            switch (text) {
-                case T.PLAYER_FIRSTNAME:
-                    sb.Append(Player.Inst.Info.FirstName);
-                    break;
-                case T.PLAYER_LASTNAME:
-                    sb.Append(Player.Inst.Info.LastName);
-                    break;
-                case T.PLAYER_FULLNAME:
-                    sb.Append(Player.Inst.Info.FullName);
-                    break;
-                case T.PERSON_FIRSTNAME:
-                    sb.Append(info.FirstName);
-                    break;
-                case T.PERSON_LASTNAME:
-                    sb.Append(info.LastName);
-                    break;
-                case T.PERSON_FULLNAME:
-                    sb.Append(info.FullName);
-                    break;
-                default:
-                    sb.Append(text);
-                    break;
+        foreach (var texts in textss) {
+            foreach (var text in texts) {
+                switch (text) {
+                    case T.PLAYER_FIRSTNAME:
+                        sb.Append(Player.Inst.Info.FirstName);
+                        break;
+                    case T.PLAYER_LASTNAME:
+                        sb.Append(Player.Inst.Info.LastName);
+                        break;
+                    case T.PLAYER_FULLNAME:
+                        sb.Append(Player.Inst.Info.FullName);
+                        break;
+                    case T.PERSON_FIRSTNAME:
+                        sb.Append(info.FirstName);
+                        break;
+                    case T.PERSON_LASTNAME:
+                        sb.Append(info.LastName);
+                        break;
+                    case T.PERSON_FULLNAME:
+                        sb.Append(info.FullName);
+                        break;
+                    case T.INTRO:
+                        sb.Append(conn.Introducer.FullName);
+                        break;
+                    default:
+                        sb.Append(text);
+                        break;
+                }
             }
         }
         var fullText = sb.ToString();
@@ -77,6 +90,6 @@ public class PersonTextHelper : MonoBehaviour {
         }
         var finalText = sb.ToString().TrimEnd();
         // show text box
-        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position + new Vector3(0, 0.5f, 0), transform, color.OutlineColor, LingerTime));
+        StartCoroutine(TextBoxManager.Inst.ShowTextBox(finalText, true, transform.position + new Vector3(0, 0.6f, 0), transform, -1, color.OutlineColor, LingerTime));
     }
 }

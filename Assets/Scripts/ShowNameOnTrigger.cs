@@ -25,7 +25,7 @@ public class ShowNameOnTrigger : MonoBehaviour {
 
     IEnumerator ShowNameAndWaitForLinger() {
         canShowName = false;
-        yield return TextBoxManager.Inst.ShowTextBox(info.FullName, false, transform.position + new Vector3(0, 0.5f * Random.value), transform.parent, color.OutlineColor, LingerTime);
+        yield return TextBoxManager.Inst.ShowTextBox(info.FullName, false, transform.position + new Vector3(0, -0.5f + 0.5f * Random.value), transform.parent, 0, color.OutlineColor, LingerTime);
         canShowName = true;
     }
 }
