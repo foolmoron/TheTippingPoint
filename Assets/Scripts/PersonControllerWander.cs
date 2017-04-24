@@ -14,7 +14,7 @@ public class PersonControllerWander : MonoBehaviour {
 	}
 	
 	void FixedUpdate() {
-        if (targetTime <= 0) {
+        if (targetTime <= 0 && DayManager.Inst.Started) {
             controller.TargetPosition = transform.position.to2() + Random.insideUnitCircle * (1f + 2f * Random.value);
             targetTime = TargetInterval * (0.5f + Random.value);
         }
