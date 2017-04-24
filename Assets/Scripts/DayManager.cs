@@ -7,6 +7,7 @@ using UnityEngine;
 public class DayManager : Manager<DayManager> {
 
     public event Action<int> OnNewDay = delegate { };
+    public event Action OnGameOver = delegate { };
 
     public const int MONTH_COUNT = 10;
     static readonly string[] MonthPrefixes = new string[MONTH_COUNT] { "Jan", "Sam", "Fe", "Ap", "Septem", "Ju", "Bro", "Octo", "Wil", "Lol" };
@@ -26,6 +27,11 @@ public class DayManager : Manager<DayManager> {
 
     public float DaySeconds = 30;
     public float TimeToNextDay;
+
+    public bool Started;
+    public bool GameOver;
+
+    public EnableOnGameOver EnableOnGameOver;
 
     public void Awake() {
         var prefixes = MonthPrefixes.Shuffle();
@@ -61,8 +67,15 @@ public class DayManager : Manager<DayManager> {
     void FixedUpdate() {
         var dayPassed = false;
 
+        // game over
+        if (!GameOver && People.Inst.ConnectedPersons == People.Inst.Persons.Length) {
+            GameOver = true;
+            EnableOnGameOver.gameObject.SetActive(true);
+            OnGameOver();
+        }
+
         // cycle
-        TimeToNextDay -= Time.deltaTime;
+        TimeToNextDay -= Time.deltaTime * (Started && !GameOver ? 1 : 0);
         if (TimeToNextDay <= 0) {
             Day++;
             TimeToNextDay = DaySeconds;
