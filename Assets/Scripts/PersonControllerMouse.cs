@@ -11,7 +11,7 @@ public class PersonControllerMouse : MonoBehaviour {
 	}
 	
 	void Update() {
-        if (Input.GetMouseButton(0) && !Menu.Inst.MenuActive) {
+        if (Input.GetMouseButton(0) && !Menu.Inst.MenuActive && DayManager.Inst.Started) {
             controller.TargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         } else {
             controller.TargetPosition = null;
