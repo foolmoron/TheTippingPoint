@@ -10,7 +10,7 @@ public class PersonConnection : MonoBehaviour {
         T.s("Hi ", T.PLAYER_FIRSTNAME, "! I'm ", T.PERSON_FIRSTNAME, ", let's be friends!"),
         T.s("Hey ", T.PLAYER_FIRSTNAME, "! My name is ", T.PERSON_FIRSTNAME, ", let's be friends!"),
         T.s("Hello ", T.PLAYER_FIRSTNAME, "! I've been looking for something to talk to! I'm ", T.PERSON_FIRSTNAME, "."),
-        T.s("Yo what's your name? I'm ", T.PLAYER_FIRSTNAME, "!"),
+        T.s("Yo what's your name? I'm ", T.PERSON_FIRSTNAME, "!"),
         T.s(T.PLAYER_FIRSTNAME, " huh? Can I ask you something?..."),
         T.s("Oh you're ", T.PLAYER_FIRSTNAME, "? Let's talk fast, I have to submit my Ludum Dare game in 30 minutes!"),
         T.s("WELCOME PLAYER FIRSTNAME:", T.PLAYER_FIRSTNAME, " LASTNAME:", T.PLAYER_LASTNAME, " TO THIS INTERACTIVE VIDEO EXPERIENCE"),
@@ -44,9 +44,9 @@ public class PersonConnection : MonoBehaviour {
 
     public static readonly string[][] UPGRADES = {
         T.s("You're a great conversationalist, ", T.PLAYER_FIRSTNAME, "! I'm gonna tell everyone about you!"),
-        T.s("You're so cool, ", T.PLAYER_FIRSTNAME, "! I'm glad I talked to you"),
+        T.s("You're so cool, ", T.PLAYER_FIRSTNAME, "! I'm glad I talked to you <3"),
         T.s("ACHIEVEMENT UNLOCKED!... just kidding! Or am I...? I am."),
-        T.s("Thanks so much for your time ", T.PLAYER_FIRSTNAME, "! I know it is valuable"),
+        T.s("Thanks so much for your time ", T.PLAYER_FIRSTNAME, "! I know it is valuable."),
         T.s("You're amazing and so is your Ludum Dare game (if you have one), ", T.PLAYER_FIRSTNAME, "!"),
         T.s("I loved this conversation, ", T.PLAYER_FIRSTNAME, ". Let's do it again soon."),
     };
